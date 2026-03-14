@@ -16,6 +16,14 @@ export default defineConfig({
         // Register a synchronous middleware NOW (before Vite's SPA fallback)
         // that will forward /api requests to Express once it's loaded.
         server.middlewares.use((req, res, next) => {
+          // Simple GET test endpoint
+          if (req.url === '/api/ping') {
+            console.log('[API] ping received');
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ ok: true, time: Date.now() }));
+            return;
+          }
           if (req.url?.startsWith('/api')) {
             console.log(`[API] ${req.method} ${req.url} expressApp=${!!expressApp}`);
             if (expressApp) {
