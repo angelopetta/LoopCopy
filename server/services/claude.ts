@@ -1,10 +1,22 @@
 import Anthropic from '@anthropic-ai/sdk';
+import { ProxyAgent, fetch as undiciFetch } from 'undici';
 
 if (!process.env.ANTHROPIC_API_KEY) {
   console.error('\n⚠️  ANTHROPIC_API_KEY is not set. Copy .env.example to .env and add your key.\n');
 }
 
-const anthropic = new Anthropic();
+const proxyUrl = process.env.https_proxy || process.env.HTTPS_PROXY || process.env.http_proxy || process.env.HTTP_PROXY;
+
+const anthropic = proxyUrl
+  ? new Anthropic({
+      fetch: ((url: string, init: any) => {
+        return undiciFetch(url, {
+          ...init,
+          dispatcher: new ProxyAgent(proxyUrl),
+        });
+      }) as unknown as typeof fetch,
+    })
+  : new Anthropic();
 
 export async function analyzeBrand(brandSeed: string) {
   const response = await anthropic.messages.create({
