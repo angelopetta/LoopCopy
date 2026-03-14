@@ -17,6 +17,7 @@ export default defineConfig({
         // that will forward /api requests to Express once it's loaded.
         server.middlewares.use((req, res, next) => {
           if (req.url?.startsWith('/api')) {
+            console.log(`[API] ${req.method} ${req.url} expressApp=${!!expressApp}`);
             if (expressApp) {
               expressApp(req, res, next);
             } else {
