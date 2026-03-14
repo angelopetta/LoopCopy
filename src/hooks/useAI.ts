@@ -203,8 +203,14 @@ Please provide the revised copy.`,
       });
 
       if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.error || 'Failed to process feedback');
+        let message = 'Failed to process feedback';
+        try {
+          const err = await res.json();
+          message = err.error || message;
+        } catch {
+          // Response body may be empty or not JSON
+        }
+        throw new Error(message);
       }
 
       const reader = res.body!.getReader();

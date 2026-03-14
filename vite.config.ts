@@ -13,6 +13,8 @@ export default defineConfig({
         import('./server/index.js').then(({ createServer }) => {
           const app = createServer();
           server.middlewares.use(app);
+        }).catch((err) => {
+          console.error('Failed to load API server:', err);
         });
       },
     },
