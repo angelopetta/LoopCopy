@@ -1,0 +1,10 @@
+{
+  "framework": "vite",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "rewrites": [
+    { "source": "/api/analyze", "destination": "/api/analyze" },
+    { "source": "/api/suggest-more", "destination": "/api/suggest-more" },
+    { "source": "/api/generate", "destination": "/api/generate" }
+  ]
+}
