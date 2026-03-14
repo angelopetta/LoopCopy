@@ -76,7 +76,14 @@ export function useAI() {
         }
         throw new Error(message);
       }
-      const params = await res.json();
+      const text = await res.text();
+      let params;
+      try {
+        params = JSON.parse(text);
+      } catch (e) {
+        console.error('Failed to parse analyze response. Status:', res.status, 'Body length:', text.length, 'Body preview:', text.slice(0, 200));
+        throw new Error(`Invalid response from server (status ${res.status}, ${text.length} bytes). Check browser console for details.`);
+      }
       dispatch({ type: 'SET_SUGGESTIONS', payload: params });
     } catch (error: any) {
       dispatch({ type: 'SET_ERROR', payload: error.message || 'Failed to analyze brand' });
