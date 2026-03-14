@@ -1,0 +1,5 @@
+{
+  "name": "LoopCopy",
+  "description": "A closed-loop feedback system for generating and refining written copy using AI.",
+  "requestFramePermissions": []
+}
