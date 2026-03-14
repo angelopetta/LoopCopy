@@ -1,5 +1,9 @@
 import Anthropic from '@anthropic-ai/sdk';
 
+if (!process.env.ANTHROPIC_API_KEY) {
+  console.error('\n⚠️  ANTHROPIC_API_KEY is not set. Copy .env.example to .env and add your key.\n');
+}
+
 const anthropic = new Anthropic();
 
 export async function analyzeBrand(brandSeed: string) {

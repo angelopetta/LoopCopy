@@ -64,8 +64,17 @@ export function useAI() {
         body: JSON.stringify({ brandSeed: state.brandSeed }),
       });
       if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.error || 'Failed to analyze brand');
+        let message = 'Failed to analyze brand';
+        try {
+          const err = await res.json();
+          message = err.error || message;
+        } catch {
+          // Response body may be empty or not JSON
+        }
+        if (res.status === 500 && message.includes('API key')) {
+          message = 'Anthropic API key is not configured. Add ANTHROPIC_API_KEY to your .env file.';
+        }
+        throw new Error(message);
       }
       const params = await res.json();
       dispatch({ type: 'SET_SUGGESTIONS', payload: params });
@@ -88,8 +97,14 @@ export function useAI() {
         }),
       });
       if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.error || 'Failed to suggest more');
+        let message = 'Failed to suggest more';
+        try {
+          const err = await res.json();
+          message = err.error || message;
+        } catch {
+          // Response body may be empty or not JSON
+        }
+        throw new Error(message);
       }
       const { items } = await res.json();
       dispatch({ type: 'ADD_SUGGESTIONS', payload: { category, items } });
@@ -114,8 +129,14 @@ export function useAI() {
       });
 
       if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.error || 'Failed to generate');
+        let message = 'Failed to generate';
+        try {
+          const err = await res.json();
+          message = err.error || message;
+        } catch {
+          // Response body may be empty or not JSON
+        }
+        throw new Error(message);
       }
 
       const reader = res.body!.getReader();

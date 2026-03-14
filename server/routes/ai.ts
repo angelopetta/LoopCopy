@@ -3,8 +3,17 @@ import { analyzeBrand, suggestMore, createGenerateStream } from '../services/cla
 
 const router = Router();
 
+function requireApiKey(_req: Request, res: Response): boolean {
+  if (!process.env.ANTHROPIC_API_KEY) {
+    res.status(500).json({ error: 'Anthropic API key is not configured. Add ANTHROPIC_API_KEY to your .env file.' });
+    return false;
+  }
+  return true;
+}
+
 router.post('/analyze', async (req: Request, res: Response) => {
   try {
+    if (!requireApiKey(req, res)) return;
     const { brandSeed } = req.body;
     if (!brandSeed || typeof brandSeed !== 'string') {
       res.status(400).json({ error: 'brandSeed is required' });
@@ -20,6 +29,7 @@ router.post('/analyze', async (req: Request, res: Response) => {
 
 router.post('/suggest-more', async (req: Request, res: Response) => {
   try {
+    if (!requireApiKey(req, res)) return;
     const { brandSeed, category, existing } = req.body;
     if (!brandSeed || !category || !Array.isArray(existing)) {
       res.status(400).json({ error: 'brandSeed, category, and existing[] are required' });
@@ -35,6 +45,7 @@ router.post('/suggest-more', async (req: Request, res: Response) => {
 
 router.post('/generate', async (req: Request, res: Response) => {
   try {
+    if (!requireApiKey(req, res)) return;
     const { systemPrompt, messages } = req.body;
     if (!systemPrompt || !Array.isArray(messages)) {
       res.status(400).json({ error: 'systemPrompt and messages[] are required' });
