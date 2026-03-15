@@ -13,7 +13,7 @@ export default function FeedbackBar() {
   }
 
   return (
-    <div className="p-6 border-t border-slate-200 bg-white shrink-0 shadow-[0_-10px_40px_rgba(0,0,0,0.03)] z-10">
+    <div className="p-4 border-t-2 border-indigo-200 bg-indigo-50/50 shrink-0 shadow-[0_-4px_20px_rgba(0,0,0,0.06)] z-10">
       <div className="max-w-4xl mx-auto">
         <label className="block text-sm font-bold text-slate-700 mb-2 flex items-center">
           <MessageSquare className="w-4 h-4 mr-2 text-indigo-500" />

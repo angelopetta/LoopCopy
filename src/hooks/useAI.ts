@@ -48,7 +48,15 @@ INSTRUCTIONS:
 9. End with the specified 'Call-to-Action Style'.
 10. Ensure the copy evokes the 'Desired Reader Emotion' and drives towards the 'Primary Objective'.
 11. The user may provide feedback on your output. Analyze the feedback, adjust, and generate a revised version.
-12. Always provide the full revised copy in your response without conversational filler.`;
+12. Always provide the full revised copy in your response without conversational filler.
+
+CRITICAL — DO NOT FABRICATE FACTS:
+- NEVER invent specific client names, person names, company names, or testimonials.
+- NEVER make up specific statistics, percentages, dollar amounts, or numerical claims (e.g., "40% increase", "$2M saved") unless the user explicitly provides them.
+- NEVER fabricate case studies, quotes, endorsements, or awards.
+- NEVER invent specific place names, dates, or historical claims about the brand.
+- When social proof or data is needed, use clear placeholders like [Client Name], [X%], [specific result], or write in a way that doesn't require specific claims (e.g., "our clients consistently see..." instead of "Johnson & Co saw a 47% increase").
+- Only reference facts, names, and data that the user has explicitly provided in the brand description or concept.`;
 }
 
 export function useAI() {

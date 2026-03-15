@@ -33,7 +33,7 @@ export default function ParameterConfigurator() {
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0 }}
-      className="absolute inset-0 flex items-center justify-center p-6 bg-slate-50/80 backdrop-blur-sm z-10 overflow-y-auto"
+      className="absolute inset-0 flex items-start justify-center p-6 bg-slate-50/80 backdrop-blur-sm z-10 overflow-y-auto"
     >
       <div className="max-w-6xl w-full bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden my-8">
         <div className="p-8 border-b border-slate-100 bg-slate-900 text-white">
