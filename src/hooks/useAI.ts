@@ -71,9 +71,6 @@ export function useAI() {
         } catch {
           // Response body may be empty or not JSON
         }
-        if (res.status === 500 && message.includes('API key')) {
-          message = 'Anthropic API key is not configured. Add ANTHROPIC_API_KEY to your .env file.';
-        }
         throw new Error(message);
       }
       const text = await res.text();

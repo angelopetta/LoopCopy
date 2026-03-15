@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import anthropic from './_client.js';
+import { getClient } from './_client.js';
 
 export const config = {
   maxDuration: 60,
@@ -11,9 +11,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    if (!process.env.ANTHROPIC_API_KEY) {
-      return res.status(500).json({ error: 'Anthropic API key is not configured.' });
-    }
+    const anthropic = getClient();
 
     const { systemPrompt, messages } = req.body;
     if (!systemPrompt || !Array.isArray(messages)) {
